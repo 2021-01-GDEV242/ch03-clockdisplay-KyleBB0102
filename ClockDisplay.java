@@ -10,6 +10,8 @@
  * fashion: the hour increments when the minutes roll over to zero.
  * 
  * @author Michael Kölling and David J. Barnes
+ * @author Kyle Balao
+ * 
  * @version 2016.02.29
  */
 public class ClockDisplay
@@ -78,7 +80,22 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int hour = hours.getValue();
+        String suffix;
+        
+        if(hour >= 12) {
+            suffix = "pm";
+        }
+        else {
+            suffix = "am";
+        }
+        if(hour >= 12) {
+            hour -=12;
+        }
+        if(hour == 0){
+            hour = 12;
+        }
+        displayString = hour + ":" + 
+                        minutes.getDisplayValue() + suffix;
     }
 }
